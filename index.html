@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>😘 Para mi gordita 😘</title>
+</head>
+
+<style> 
+
+    body {
+        background: linear-gradient(135deg, pink, purple);
+        text-align: center;
+    }
+
+.aguacate {
+    font-size: 100px;
+    margin: 20px;
+    animation: flotar 2s infinite ease-in-out;
+}
+.aguacate.saltar {
+    animation: saltar 0.4s ease;
+}
+@keyframes saltar {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#mensaje {
+    display: none;
+}
+
+#mensaje.mostrar {
+    display: block;
+    background-color: white;
+    color: #c2185b;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 30px;
+    margin: 30px auto;
+    width: 70%;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px gray;
+    animation: aparecer 1s ease;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes flotar {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.corazon {
+    position: fixed;
+    bottom: 0;
+    font-size: 35px;
+    animation: subir 3s linear forwards;
+    pointer-events: none;
+}
+    
+    @keyframes subir{
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        100% {
+            transform: translateY(-100vh);
+            opacity: 0;
+        }
+        
+    }
+@keyframes subirPremio {
+
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(1.3);
+    }
+
+}
+
+#juego {
+    text-align: center;
+    margin-top: 25px;
+}
+
+#zonaJuego {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    height: 350px;
+    margin: auto;
+    border: 3px solid #7ac943;
+    border-radius: 20px;
+    background: #f1ffe8;
+    overflow: hidden;
+}
+
+#aguacateJuego {
+    position: absolute;
+    font-size: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+</style>
+
+<body>
+
+    <h1> ❤️‍🔥 Holaaa mi amor estoy practicando la programación❤️‍🔥</h1>
+
+    <div class="aguacate" id="aguacate" onclick="saltarAguacate()">🥑</div>
+
+    <p> Esta pagina fue hecha solo para usted
+
+    </p>
+
+    <button onclick="mostrarMensaje()" id="boton">
+        Presione aqui mami⭐
+    </button>
+
+    <br><br>
+
+    <button onclick="iniciarJuego()"> 
+    ❤️ ATRAPA LOS CORAZONES ❤️
+</button>
+
+    <div id="juego" style="display:none;">
+        <h2>❤️ ¡ATRAPA LOS CORAZONES! ❤️</h2>
+        <p>Puntos: <span id="Puntos">0</span></p>
+        <p>Tiempo: <span id="Tiempo">30</span> segundos</p>
+
+        <div id="zonaJuego"></div>
+        <h3 id="resultado"></h3>
+    </div>
+
+    <p id="mensaje"></p>
+
+<script>
+
+let toquesAguacate = 0;
+
+function saltarAguacate() {
+
+    let aguacate = document.getElementById("aguacate");
+
+    aguacate.classList.add("saltar");
+
+    setTimeout(function() {
+        aguacate.classList.remove("saltar");
+    }, 400);
+
+    toquesAguacate++;
+
+    if (toquesAguacate === 10) {
+
+        let gif = document.createElement("img");
+
+        gif.src = "https://media.tenor.com/MwVSjFu_g-MAAAAM/jerry-laughing.gif";
+
+        gif.style.width = "300px";
+        gif.style.display = "block";
+        gif.style.margin = "20px auto";
+        gif.style.borderRadius = "20px";
+
+        document.body.appendChild(gif);
+
+    }
+}
+
+
+function mostrarMensaje() {
+
+    let boton = document.getElementById("boton");
+    boton.disabled = true;
+
+    let mensaje = document.getElementById("mensaje");
+
+    let texto = "💗 Te amo mucho mi gordita 😍. Esta página la estoy haciendo especialmente para usted 💗";
+
+    mensaje.innerHTML = "";
+
+    let i = 0;
+
+    let escribir = setInterval(function() {
+
+        mensaje.innerHTML += texto.charAt(i);
+
+        i++;
+
+        if (i >= texto.length) {
+            clearInterval(escribir);
+        }
+
+    }, 70);
+
+    mensaje.classList.add("mostrar");
+
+    for (let i = 0; i < 30; i++) {
+
+        let corazon = document.createElement("div");
+
+        let corazones = ["❤️", "💗", "💖", "💕", "💞"];
+
+        corazon.innerHTML =
+            corazones[Math.floor(Math.random() * corazones.length)];
+
+        corazon.classList.add("corazon");
+
+        corazon.style.left = Math.random() * 100 + "vw";
+
+        corazon.style.fontSize =
+            Math.random() * 30 + 20 + "px";
+
+        corazon.style.animationDuration =
+            Math.random() * 2 + 2 + "s";
+
+        document.body.appendChild(corazon);
+    }
+}
+
+
+// ==============================
+// VARIABLES DEL JUEGO
+// ==============================
+
+let puntos = 0;
+let tiempo = 30;
+let intervalo;
+let jugando = false;
+let audio = new AudioContext();
+
+function sonidoPunto() {
+    let oscilador = audio.createOscillator();
+    let ganancia = audio.createGain();
+
+    oscilador.connect(ganancia);
+    ganancia.connect(audio.destination);
+
+    oscilador.frequency.value = 600;
+    ganancia.gain.value = 0.15;
+
+    oscilador.start();
+    oscilador.stop(audio.currentTime + 0.15);
+}
+function sonidoPremio() {
+
+    let oscilador = audio.createOscillator();
+    let ganancia = audio.createGain();
+
+    oscilador.connect(ganancia);
+    ganancia.connect(audio.destination);
+
+    oscilador.frequency.value = 900;
+    ganancia.gain.value = 0.15;
+
+    oscilador.start();
+
+    oscilador.frequency.exponentialRampToValueAtTime(
+        1400,
+        audio.currentTime + 0.25
+    );
+
+    oscilador.stop(audio.currentTime + 0.25);
+}
+function sonidoError() {
+
+    let oscilador = audio.createOscillator();
+    let ganancia = audio.createGain();
+
+    oscilador.connect(ganancia);
+    ganancia.connect(audio.destination);
+
+    oscilador.type = "sawtooth";
+
+    oscilador.frequency.setValueAtTime(
+        300,
+        audio.currentTime
+    );
+
+    oscilador.frequency.exponentialRampToValueAtTime(
+        80,
+        audio.currentTime + 0.4
+    );
+
+    ganancia.gain.setValueAtTime(
+        0.25,
+        audio.currentTime
+    );
+
+    ganancia.gain.exponentialRampToValueAtTime(
+        0.01,
+        audio.currentTime + 0.4
+    );
+
+    oscilador.start();
+
+    oscilador.stop(
+        audio.currentTime + 0.4
+    );
+}
+
+// ==============================
+// INICIAR JUEGO
+// ==============================
+
+function iniciarJuego() {
+
+    document.getElementById("juego").style.display = "block";
+
+    puntos = 0;
+    tiempo = 30;
+    jugando = true;
+
+    document.getElementById("Puntos").textContent = puntos;
+    document.getElementById("Tiempo").textContent = tiempo;
+    document.getElementById("resultado").textContent = "";
+
+    iniciarCorazones();
+
+    clearInterval(intervalo);
+
+    intervalo = setInterval(function() {
+
+        tiempo--;
+
+        document.getElementById("Tiempo").textContent = tiempo;
+
+        if (tiempo <= 0) {
+            terminarJuego();
+        }
+
+    }, 1000);
+}
+
+
+// ==============================
+// CREAR CORAZÓN ❤️
+// ==============================
+
+function crearCorazonJuego() {
+
+    if (!jugando) return;
+
+    let corazon = document.createElement("button");
+
+    let tipos = [
+        { simbolo: "❤️", puntos: 1 },
+        { simbolo: "💗", puntos: 1 },
+        { simbolo: "💖", puntos: 1 },
+        { simbolo: "💛", puntos: 5 },
+        { simbolo: "🖤", puntos: -3 }
+    ];
+
+    let tipo =
+        tipos[Math.floor(Math.random() * tipos.length)];
+
+    corazon.innerHTML = tipo.simbolo;
+
+    corazon.style.position = "absolute";
+
+    corazon.style.fontSize =
+        Math.random() * 15 + 30 + "px";
+
+    corazon.style.border = "none";
+    corazon.style.background = "transparent";
+    corazon.style.cursor = "pointer";
+    corazon.style.padding = "0";
+
+    let zona =
+        document.getElementById("zonaJuego");
+
+    let maxX = zona.clientWidth - 50;
+    let maxY = zona.clientHeight - 50;
+
+    corazon.style.left =
+        Math.random() * maxX + "px";
+
+    corazon.style.top =
+        Math.random() * maxY + "px";
+
+
+    // ❤️ Cuando toca el corazón
+    corazon.onclick = function() {
+
+    if (!jugando) return;
+
+    puntos += tipo.puntos;
+
+    if (tipo.simbolo === "💛") {
+        sonidoPremio();
+    } else if (tipo.simbolo === "🖤") {
+        sonidoError();
+    } else {
+        sonidoPunto();
+    }
+
+    document.getElementById("Puntos").textContent =
+        puntos;
+
+    let premio = document.createElement("div");
+
+    if (tipo.puntos > 0) {
+        premio.innerHTML = "+" + tipo.puntos + " ❤️";
+    } else {
+        premio.innerHTML = tipo.puntos + " 🖤";
+    }
+
+    premio.style.position = "absolute";
+    premio.style.left = corazon.style.left;
+    premio.style.top = corazon.style.top;
+    premio.style.fontSize = "28px";
+    premio.style.fontWeight = "bold";
+    premio.style.pointerEvents = "none";
+    premio.style.animation = "subirPremio 1s ease forwards";
+
+    document.getElementById("zonaJuego").appendChild(premio);
+
+    corazon.remove();
+
+    setTimeout(function() {
+        premio.remove();
+    }, 1000);
+};
+
+
+    zona.appendChild(corazon);
+
+
+    // ⏱️ Si no lo toca, desaparece
+    setTimeout(function() {
+
+        if (corazon.parentElement) {
+
+            corazon.remove();
+
+        }
+
+    }, 2500);
+}
+
+
+// ==============================
+// GENERAR CORAZONES
+// ==============================
+
+function iniciarCorazones() {
+
+    if (!jugando) return;
+
+    crearCorazonJuego();
+
+    setTimeout(function() {
+
+        if (jugando) {
+            iniciarCorazones();
+        }
+
+    }, 800);
+}
+
+// ==============================
+// CREAR ESTRELLA
+// ==============================
+
+function crearAguacateDorado() {
+
+    let dorado = document.createElement("button");
+
+    dorado.innerHTML = "⭐";
+
+    dorado.id = "aguacateDorado";
+
+    dorado.style.position = "absolute";
+    dorado.style.fontSize = "45px";
+    dorado.style.border = "none";
+    dorado.style.background = "transparent";
+    dorado.style.cursor = "pointer";
+
+    let zona =
+        document.getElementById("zonaJuego");
+
+    let maxX = zona.clientWidth - 60;
+    let maxY = zona.clientHeight - 60;
+
+    dorado.style.left =
+        Math.random() * maxX + "px";
+
+    dorado.style.top =
+        Math.random() * maxY + "px";
+
+
+    dorado.onclick = function() {
+
+        puntos += 5;
+
+        document.getElementById("Puntos").textContent = puntos;
+
+        let premio = document.createElement("div");
+
+        premio.innerHTML = "+5 ⭐";
+
+        premio.style.position = "absolute";
+        premio.style.left = dorado.style.left;
+        premio.style.top = dorado.style.top;
+        premio.style.fontSize = "30px";
+        premio.style.fontWeight = "bold";
+        premio.style.color = "#ffd700";
+        premio.style.pointerEvents = "none";
+        premio.style.animation =
+            "subirPremio 1s ease forwards";
+
+        zona.appendChild(premio);
+
+        dorado.remove();
+
+        setTimeout(function() {
+            premio.remove();
+        }, 1000);
+    };
+
+
+    zona.appendChild(dorado);
+
+
+    setTimeout(function() {
+
+        if (dorado.parentElement) {
+            dorado.remove();
+        }
+
+    }, 3000);
+}
+
+
+// ==============================
+// PROGRAMAR ESTRELLAS
+// ==============================
+
+function programarAguacateDorado() {
+
+    if (!jugando) return;
+
+    let tiempoEspera =
+        Math.random() * 4000 + 2500;
+
+    setTimeout(function() {
+
+        if (!jugando) return;
+
+        crearAguacateDorado();
+
+        programarAguacateDorado();
+
+    }, tiempoEspera);
+}
+
+
+// ==============================
+// CREAR TRAMPA
+// ==============================
+
+function crearTrampa() {
+
+    let trampa = document.createElement("button");
+
+    trampa.innerHTML = "💔";
+
+    trampa.id = "trampa";
+
+    trampa.style.position = "absolute";
+    trampa.style.fontSize = "45px";
+    trampa.style.border = "none";
+    trampa.style.background = "transparent";
+    trampa.style.cursor = "pointer";
+
+    let zona =
+        document.getElementById("zonaJuego");
+
+    let maxX = zona.clientWidth - 60;
+    let maxY = zona.clientHeight - 60;
+
+    trampa.style.left =
+        Math.random() * maxX + "px";
+
+    trampa.style.top =
+        Math.random() * maxY + "px";
+
+
+    trampa.onclick = function() {
+
+        puntos -= 3;
+
+        document.getElementById("Puntos").textContent = puntos;
+
+        let mensaje = document.createElement("div");
+
+        mensaje.innerHTML = "-3 💔";
+
+        mensaje.style.position = "absolute";
+        mensaje.style.left = trampa.style.left;
+        mensaje.style.top = trampa.style.top;
+        mensaje.style.fontSize = "30px";
+        mensaje.style.fontWeight = "bold";
+        mensaje.style.color = "red";
+        mensaje.style.pointerEvents = "none";
+        mensaje.style.animation =
+            "subirTrampa 1s ease forwards";
+
+        zona.appendChild(mensaje);
+
+        trampa.remove();
+
+        setTimeout(function() {
+            mensaje.remove();
+        }, 1000);
+    };
+
+
+    zona.appendChild(trampa);
+
+
+    setTimeout(function() {
+
+        if (trampa.parentElement) {
+            trampa.remove();
+        }
+
+    }, 3000);
+}
+
+
+// ==============================
+// PROGRAMAR TRAMPAS
+// ==============================
+
+function programarTrampa() {
+
+    if (!jugando) return;
+
+    let tiempoEspera =
+        Math.random() * 4000 + 3000;
+
+    setTimeout(function() {
+
+        if (!jugando) return;
+
+        crearTrampa();
+
+        programarTrampa();
+
+    }, tiempoEspera);
+}
+
+
+// ==============================
+// TERMINAR JUEGO
+// ==============================
+
+function terminarJuego() {
+
+    jugando = false;
+
+    clearInterval(intervalo);
+
+    document.getElementById("resultado").textContent =
+        "❤️ ¡JUEGO TERMINADO! ❤️ Obtuviste " +
+        puntos +
+        " puntos ❤️";
+}
+
+</script>
+
+</body>
+
+</html>
